@@ -1,0 +1,49 @@
+<!-- filepath: c:\Users\Lenovo\OneDrive\Desktop\test\templates\index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Tracker</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Website Name -->
+        <div class="logo-header" style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+            <img src="static\logo.png" alt="StockPulse Logo" style="height:60px;">
+            <span style="font-size:2.5rem; font-weight:bold; color:#fff;">StockPulse</span>
+        </div>
+        <!-- Navigation Bar -->
+        <nav>
+            <a href="/">Home</a>
+            <a href="/performance">Performance</a>
+        </nav>
+
+        <h1>Welcome to the Stock Market Tracker</h1>
+        <p>Track your stock investments and view top gainers and losers in the market.</p>  
+
+        <section id="user-input">
+            <h2>Add Stock Data</h2>
+            <form id="stock-form">
+                <input type="text" id="stock_symbol" name="stock_symbol" placeholder="Stock Symbol" required>
+                <input type="text" id="exchange" name="exchange" placeholder="Exchange (NSE/BSE)" required>
+                <input type="number" id="quantity" name="quantity" placeholder="Quantity" required>
+                <input type="number" id="purchase_price" name="purchase_price" placeholder="Purchase Price" step="0.01" required>
+                <button type="submit">Add Stock</button>
+            </form>
+        </section>
+
+        <section id="gainers">
+            <h2>Top Gainers</h2>
+            <div class="stock-list" id="gainers-list"></div>
+        </section>
+
+        <section id="losers">
+            <h2>Top Losers</h2>
+            <div class="stock-list" id="losers-list"></div>
+        </section>
+    </div>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
