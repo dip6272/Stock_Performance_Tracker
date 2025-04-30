@@ -1,29 +1,39 @@
 # StockPulse - Stock Performance Tracker
 
-StockPulse is a web application to track your stock investments, view top gainers and losers in the Indian stock market, and download a professional PDF report of your portfolio (with stock logos and names).
+StockPulse is a web application designed to help you track your stock investments, monitor market trends, and generate professional reports for your portfolio. With a clean and modern interface, StockPulse makes managing your investments simple and efficient.
 
 ---
 
 ## 🚀 Features
 
-- **Add, update, and delete stocks** in your portfolio.
-- **View top gainers and losers** (NSE) with logos and price changes.
-- **Performance tab**: See your stocks in a table with logo, name, symbol, exchange, quantity, buy price, current price, and profit/loss.
-- **Download PDF report**: Export your portfolio as a PDF, including stock logos and names, matching the table view.
-- **Modern UI**: Clean, dark-themed interface for easy tracking.
+- **Portfolio Management**: Add, update, and delete stocks in your portfolio with ease.
+- **Market Insights**: View top gainers and losers in the Indian stock market (NSE) with stock logos and real-time price changes.
+- **Performance Overview**: Analyze your portfolio in a detailed table that includes stock logos, names, symbols, exchange, quantity, buy price, current price, and profit/loss.
+- **PDF Reporting**: Export your portfolio as a professional PDF report, complete with stock logos and names, matching the table view.
+- **Modern UI**: Enjoy a clean, dark-themed interface for seamless tracking and analysis.
 
 ---
 
 ## 📸 Screenshots
 
 ### Main Page (Top Gainers)
-![Main Page]()
+The main page displays the top gainers in the Indian stock market, complete with stock logos and real-time price changes.
+
+![Main Page](attachment/main_page.png)
+
+---
 
 ### Performance Tab
-![Performance Tab]("attachment\389b6f8637bb41ed8b400c841909a016.jpg")
+The performance tab provides a detailed view of your portfolio, including stock details, current performance, and profit/loss calculations.
+
+![Performance Tab](attachment/performance_tab.png)
+
+---
 
 ### Downloaded PDF Report
-![PDF Report]("attachment\d1a710ecec7c416c80b157639b177f75.jpg")
+Generate a professional PDF report of your portfolio, including stock logos and names, for easy sharing or record-keeping.
+
+![PDF Report](attachment/pdf_report.png)
 
 ---
 
@@ -55,18 +65,18 @@ StockPulse is a web application to track your stock investments, view top gainer
 ## ⚡ Getting Started
 
 1. **Clone the repository:**
-    ```
+    ```bash
     git clone https://github.com/YOUR-USERNAME/stock-performance-tracker.git
     cd stock-performance-tracker
     ```
 
 2. **Install dependencies:**
-    ```
+    ```bash
     pip install -r requirements.txt
     ```
 
 3. **Run the app:**
-    ```
+    ```bash
     python app.py
     ```
     Visit [http://localhost:5000](http://localhost:5000) in your browser.
@@ -107,7 +117,7 @@ StockPulse is a web application to track your stock investments, view top gainer
 
 ## 📧 Contact
 
-For questions or suggestions, open an issue or contact [dippadwal89@gmail.com]
+For questions or suggestions, open an issue or contact [dippadwal89@gmail.com].
 
 ---
 
