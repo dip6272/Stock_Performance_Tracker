@@ -404,9 +404,10 @@ def download_pdf():
 
     pdf_file = "performance_report.pdf"
     pdf.output(pdf_file)
-    return send_file(pdf_file, as_attachment=True)    
+    return send_file(pdf_file, as_attachment=True)
+
+# Expose the app as 'application' for Gunicorn/Render compatibility
+application = app
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
-  #...........done...............
