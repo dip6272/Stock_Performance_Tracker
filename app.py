@@ -256,42 +256,27 @@ def delete_stock():
     return jsonify({"message": f"Stock {stock_symbol} deleted successfully!"})
 
 def fetch_actual_price(stock_symbol, exchange):
-    """Fetch the actual stock price using Yahoo Finance, fallback to nsetools for NSE."""
+    # Try yfinance first
     try:
-        if exchange == "NSE":
-            symbol = f"{stock_symbol}".replace(".NS", "") + ".NS"
-        elif exchange == "BSE":
-            symbol = f"{stock_symbol}".replace(".BO", "") + ".BO"
-        else:
-            return None
+        stock = yf.Ticker(stock_symbol)
+        hist = stock.history(period="1d")
+        if not hist.empty:
+            return hist["Close"].iloc[-1]
+    except Exception as e:
+        print(f"yfinance error for {stock_symbol}: {e}")
 
-        stock = yf.Ticker(symbol)
-        stock_info = stock.history(period="1d")
-        if not stock_info.empty:
-            return stock_info["Close"].iloc[-1]
-        else:
-            # Fallback to nsetools for NSE
-            if exchange == "NSE":
-                nse = Nse()
-                nse_symbol = stock_symbol.replace(".NS", "").upper()
-                q = nse.get_quote(nse_symbol)
-                if q and "lastPrice" in q:
-                    price_str = q["lastPrice"].replace("₹", "").replace(",", "").strip()
-                    return float(price_str)
-            return None
-    except Exception:
-        if exchange == "NSE":
-            try:
-                nse = Nse()
-                nse_symbol = stock_symbol.replace(".NS", "").upper()
-                q = nse.get_quote(nse_symbol)
-                if q and "lastPrice" in q:
-                    price_str = q["lastPrice"].replace("₹", "").replace(",", "").strip()
-                    return float(price_str)
-            except Exception:
-                return None
-        return None
-
+    # Fallback to nsetools for NSE
+    if exchange == "NSE":
+        try:
+            nse = Nse()
+            nse_symbol = stock_symbol.replace(".NS", "").upper()
+            q = nse.get_quote(nse_symbol)
+            if q and "lastPrice" in q:
+                price_str = q["lastPrice"].replace("₹", "").replace(",", "").strip()
+                return float(price_str)
+        except Exception as e:
+            print(f"nsetools error for {stock_symbol}: {e}")
+    return None
 @app.route("/download-pdf", methods=["GET"])
 def download_pdf():
     # Fetch performance data
