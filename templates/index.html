@@ -1,4 +1,3 @@
-<!-- filepath: c:\Users\Lenovo\OneDrive\Desktop\test\templates\index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@
     <div class="container">
         <!-- Logo and Website Name -->
         <div class="logo-header" style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-            <img src="static\logo.png" alt="StockPulse Logo" style="height:60px;">
+            <img src="/static/logo.png" alt="StockPulse Logo" style="height:60px;">
             <span style="font-size:2.5rem; font-weight:bold; color:#fff;">StockPulse</span>
         </div>
         <!-- Navigation Bar -->
@@ -23,6 +22,7 @@
         <h1>Welcome to the Stock Market Tracker</h1>
         <p>Track your stock investments and view top gainers and losers in the market.</p>  
 
+        <!-- Add Stock Data Form -->
         <section id="user-input">
             <h2>Add Stock Data</h2>
             <form id="stock-form">
@@ -34,16 +34,48 @@
             </form>
         </section>
 
+        <!-- Excel Upload Section -->
+        <section id="excel-upload-section" style="margin-top: 32px;">
+            <h2>Analyze Portfolio via Excel</h2>
+            <form id="excel-upload-form" action="/upload-excel" method="post" enctype="multipart/form-data">
+                <label for="excel-file">Select Excel file:</label>
+                <input type="file" name="file" id="excel-file" accept=".xlsx,.xls" required>
+                <button type="submit">Upload & Analyze</button>
+                <span id="upload-status" style="margin-left:10px;color:#0f0;"></span>
+            </form>
+        </section>
+
+        <!-- Top Gainers Section -->
         <section id="gainers">
             <h2>Top Gainers</h2>
             <div class="stock-list" id="gainers-list"></div>
         </section>
 
+        <!-- Top Losers Section -->
         <section id="losers">
             <h2>Top Losers</h2>
             <div class="stock-list" id="losers-list"></div>
         </section>
     </div>
+
     <script src="/static/js/script.js"></script>
+    <script>
+    // Excel upload feedback
+    const form = document.getElementById('excel-upload-form');
+    const fileInput = document.getElementById('excel-file');
+    const statusSpan = document.getElementById('upload-status');
+
+    fileInput.addEventListener('change', function() {
+        if (fileInput.files.length > 0) {
+            statusSpan.textContent = "Selected: " + fileInput.files[0].name;
+        } else {
+            statusSpan.textContent = "";
+        }
+    });
+
+    form.addEventListener('submit', function() {
+        statusSpan.textContent = "Uploading...";
+    });
+    </script>
 </body>
 </html>

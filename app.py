@@ -6,6 +6,7 @@ from fpdf import FPDF
 from nsetools import Nse  # Backup module for NSE
 import requests
 import tempfile
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -25,17 +26,68 @@ COMPANY_NAME_TO_SYMBOL = {
 }
 
 def resolve_symbol(user_input):
-    # Normalize input
     key = user_input.strip().upper()
-    # Try direct match
     if key in COMPANY_NAME_TO_SYMBOL:
         return COMPANY_NAME_TO_SYMBOL[key]
-    # Try partial match
     for name, symbol in COMPANY_NAME_TO_SYMBOL.items():
         if key in name:
             return symbol
-    # Fallback: assume user entered symbol directly
     return user_input.upper() + ".NS"
+
+@app.route('/upload-excel', methods=['POST'])
+def upload_excel():
+    if 'file' not in request.files:
+        return "No file part", 400
+    file = request.files['file']
+    if file.filename == '':
+        return "No selected file", 400
+
+    # Read Excel file
+    df = pd.read_excel(file)
+
+    # Copy Closing Value to Opening Value in the result
+    df['Opening Value'] = df['Closing Value']
+
+    # Add columns for actual price and profit/loss
+    actual_prices = []
+    profit_losses = []
+
+    for idx, row in df.iterrows():
+        symbol = str(row['Stock Symbol'])
+        quantity = float(row['Quantity'])
+        opening_price = float(row['Opening Value'])  # Now use the new Opening Value
+
+        # Get today's close price from yfinance
+        try:
+            stock = yf.Ticker(symbol)
+            hist = stock.history(period="1d")
+            if not hist.empty:
+                actual_price = hist['Close'].iloc[-1]
+            else:
+                actual_price = None
+        except Exception:
+            actual_price = None
+
+        actual_prices.append(actual_price)
+        if actual_price is not None:
+            profit_losses.append((actual_price - opening_price) * quantity)
+        else:
+            profit_losses.append(None)
+
+    df['Actual Price'] = actual_prices
+    df['Profit/Loss'] = profit_losses
+
+    # Save to a temporary Excel file
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.xlsx') as tmp:
+        df.to_excel(tmp.name, index=False)
+        tmp_path = tmp.name
+
+    # Send file back to user
+    response = send_file(tmp_path, as_attachment=True, download_name="stock_performance.xlsx")
+    @response.call_on_close
+    def cleanup():
+        os.remove(tmp_path)
+    return response
 
 @app.route("/get-gainers-losers", methods=["GET"])
 def get_gainers_losers():
@@ -202,7 +254,6 @@ def delete_stock():
         writer.writerows(updated_rows)
 
     return jsonify({"message": f"Stock {stock_symbol} deleted successfully!"})
-# Removed duplicate download_pdf function to avoid redefinition error
 
 def fetch_actual_price(stock_symbol, exchange):
     """Fetch the actual stock price using Yahoo Finance, fallback to nsetools for NSE."""
@@ -240,8 +291,6 @@ def fetch_actual_price(stock_symbol, exchange):
             except Exception:
                 return None
         return None
-    
-    
 
 @app.route("/download-pdf", methods=["GET"])
 def download_pdf():
