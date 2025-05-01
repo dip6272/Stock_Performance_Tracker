@@ -1,6 +1,6 @@
 flask==2.2.5
 yfinance==0.2.37
 fpdf==1.7.2
-nsetools==1.0.0
+nsetools==2.0.1
 requests==2.31.0
 pandas==2.2.2
