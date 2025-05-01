@@ -16,7 +16,6 @@ StockPulse is a web application designed to help you track your stock investment
 
 ## 📸 Screenshots
 
-
 ### 🟢 Main Page – Top Gainers
 Displays top gainers in the Indian stock market with real-time updates and logos.
 
@@ -28,29 +27,6 @@ Displays top gainers in the Indian stock market with real-time updates and logos
 View detailed performance of your portfolio including profit/loss for each stock.
 
 ![Performance Tab](screenshots/performancepage.jpg)
-=======
-
-### 🟢 Main Page – Top Gainers
-Displays top gainers in the Indian stock market with real-time updates and logos.
-
-![Main Page](screenshots/screenshot/mainpage.jpg)
-
----
-
-### 📊 Portfolio Performance Tab
-View detailed performance of your portfolio including profit/loss for each stock.
-
-![Performance Tab](screenshots/performancepage.jpg)
-=======
-### Main Page (Top Gainers)
-![Main Page](screenshots/screenshot/mainpage.jpg)
-
-### Performance Tab
-![Performance Tab](screenshots/screenshot/performancepage.jpg)
-
-### Downloaded PDF Report
-![PDF Report](screenshots/screenshot/downlodereport.jpg)
-
 
 ---
 
