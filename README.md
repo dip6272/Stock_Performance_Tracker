@@ -17,7 +17,7 @@ StockPulse is a web application to track your stock investments, view top gainer
 ## 📸 Screenshots
 
 ### Main Page (Top Gainers)
-![Main Page](screenshots/mainpage.jpg)
+![Main Page](screenshots\screenshot\mainpage.jpg)
 
 ### Performance Tab
 ![Performance Tab](screenshots/screenshoot/performancepage.jpg)
