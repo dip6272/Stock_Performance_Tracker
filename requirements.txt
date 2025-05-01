@@ -5,3 +5,4 @@ nsetools==2.0.1
 requests==2.31.0
 pandas==2.2.2
 gunicorn==21.2.0
+openpyxl
