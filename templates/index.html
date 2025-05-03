@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" style="position: absolute; top: 16px; right: 16px;">🌙 Toggle Theme</button>
     <div class="container">
         <!-- Logo and Website Name -->
-        <div class="logo-header" style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-            <img src="/static/logo.png" alt="StockPulse Logo" style="height:60px;">
+        <div class="logo-header" style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 16px;">
+            <img src="/static/logo.png" alt="StockPulse Logo" style="height:150px;">
             <span style="font-size:2.5rem; font-weight:bold; color:#fff;">StockPulse</span>
         </div>
         <!-- Navigation Bar -->
@@ -76,6 +78,33 @@
     form.addEventListener('submit', function() {
         statusSpan.textContent = "Uploading...";
     });
+
+    // Theme toggle
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Load theme from localStorage
+    if (localStorage.getItem('theme') === 'light') {
+        body.classList.add('light-theme');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('light-theme');
+        if (body.classList.contains('light-theme')) {
+            localStorage.setItem('theme', 'light');
+            toggleBtn.textContent = "🌙 Dark Mode";
+        } else {
+            localStorage.setItem('theme', 'dark');
+            toggleBtn.textContent = "☀️ Light Mode";
+        }
+    });
+
+    // Set initial button text
+    if (body.classList.contains('light-theme')) {
+        toggleBtn.textContent = "🌙 Dark Mode";
+    } else {
+        toggleBtn.textContent = "☀️ Light Mode";
+    }
     </script>
 </body>
 </html>

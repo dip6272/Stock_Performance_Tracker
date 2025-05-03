@@ -277,6 +277,7 @@ def fetch_actual_price(stock_symbol, exchange):
         except Exception as e:
             print(f"nsetools error for {stock_symbol}: {e}")
     return None
+
 @app.route("/download-pdf", methods=["GET"])
 def download_pdf():
     # Fetch performance data
